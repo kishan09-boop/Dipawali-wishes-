@@ -1,0 +1,441 @@
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'f57045066abb64c4912c067a5c2b6e32',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/f57045066abb64c4912c067a5c2b6e32/invoke.js"></script>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubh Deepawali!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            text-align: center;
+            background-color: #2c003e; /* Dark purple for night sky */
+            background-image: radial-gradient(circle, #4a0070, #2c003e 80%);
+            color: #fff5e1; /* Creamy white/light gold */
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scroll from fireworks */
+        }
+
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            background-color: rgba(60, 0, 80, 0.7);
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5), 0 0 10px rgba(255,165,0,0.3) inset;
+            max-width: 550px;
+            width: 90%;
+            border: 2px solid #ffd700;
+            z-index: 1;
+        }
+
+        #greetingMessage {
+            font-size: 2.2em;
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            min-height: 1.5em;
+            text-shadow: 0 0 5px #ff8c00;
+        }
+
+        .animated-greeting {
+            animation: glowAndZoom 2s ease-out forwards;
+        }
+
+        @keyframes glowAndZoom {
+            0% { opacity: 0; transform: scale(0.7); text-shadow: 0 0 2px #ff8c00; }
+            70% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 15px #ff8c00, 0 0 25px #ff8c00; }
+            100% { opacity: 1; transform: scale(1); text-shadow: 0 0 5px #ff8c00; }
+        }
+
+        #diwaliImage {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 3px solid #ff9900;
+            box-shadow: 0 0 15px rgba(255,153,0,0.7);
+        }
+
+        .input-group {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .input-group p {
+            font-size: 1.1em;
+            color: #ffe0b3;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 12px 15px;
+            border: 1px solid #ffaa4d;
+            border-radius: 8px;
+            width: calc(100% - 32px);
+            font-size: 1em;
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+        input[type="text"]::placeholder { color: #ffcc80; }
+
+        button#generateButton { /* Specific ID for styling main button */
+            background: linear-gradient(145deg, #ffac4d, #ff8c00);
+            color: #4a0032;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+        button#generateButton:hover {
+            background: linear-gradient(145deg, #ffc107, #ff9900);
+            box-shadow: 0 6px 12px rgba(255,165,0,0.5);
+            transform: translateY(-2px);
+        }
+
+        #shareLinkContainer {
+            margin-top: 25px;
+            display: none;
+        }
+        #shareLinkContainer p:first-child { /* "Yeh link copy karke..." */
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ffc107;
+        }
+        .link-actions-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        #generatedLink {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ffaa4d;
+            border-radius: 5px;
+            font-size: 0.9em;
+            background-color: rgba(255,255,255,0.1);
+            color: #ffffff;
+            margin-bottom: 0; /* Reset margin as it's in a flex container */
+        }
+        button.action-button { /* Common style for copy and share buttons */
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+        button#copyButton {
+            background-color: #4CAF50; /* Green for copy */
+            color: white;
+        }
+        button#copyButton:hover {
+            background-color: #45a049;
+        }
+        button#shareButton {
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            width: 100%;
+            margin-top: 10px; /* Spacing from copy row */
+            display: block; /* Always visible when parent container is visible */
+        }
+        button#shareButton:hover {
+            background-color: #1DAE54;
+        }
+        button#shareButton svg {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        #copyStatus {
+            font-size:0.9em;
+            color: #76ff76;
+            margin-top:8px;
+            min-height: 1em;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 20px;
+            font-size: 0.95em;
+            color: #ffcc80;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <div class="container">
+        <div id="greetingMessage"></div>
+
+        <img id="diwaliImage" src="laxmi.gif" alt="Shubh Deepawali Animation">
+
+        <div class="input-group">
+            <p>अपना नाम लिखें और दीपावली की शुभकामनाएँ भेजें:</p>
+            <input type="text" id="userName" placeholder="आपका नाम यहाँ लिखें">
+            <button id="generateButton" onclick="generateLinkAndTryShare()">शुभकामना भेजें</button>
+        </div>
+
+        <div id="shareLinkContainer">
+            <p>यह लिंक कॉपी करके या सीधे शेयर करें:</p>
+            <div class="link-actions-wrapper">
+                <input type="text" id="generatedLink" readonly>
+                <button id="copyButton" class="action-button" onclick="copyLink()">कॉपी</button>
+            </div>
+            <button id="shareButton" class="action-button" onclick="manualShareButtonClick()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z"/>
+                </svg>
+                शेयर करें
+            </button>
+            <p id="copyStatus"></p>
+        </div>
+    </div>
+
+    <footer>
+        यह दीपावली आपके जीवन में सुख, समृद्धि और प्रकाश लाए!
+    </footer>
+
+    <script>
+        // --- Firework Effect ---
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        let fireworks = [];
+        let particles = [];
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        function Firework(sx, sy, tx, ty) {
+            this.x = sx; this.y = sy; this.sx = sx; this.sy = sy; this.tx = tx; this.ty = ty;
+            this.distanceToTarget = Math.sqrt(Math.pow(tx - sx, 2) + Math.pow(ty - sy, 2));
+            this.distanceTraveled = 0; this.coordinates = []; this.coordinateCount = 3;
+            while (this.coordinateCount--) { this.coordinates.push([this.x, this.y]); }
+            this.angle = Math.atan2(ty - sy, tx - sx); this.speed = 2; this.acceleration = 1.03;
+            this.brightness = Math.random() * 50 + 50; this.targetRadius = 1; this.hue = Math.random() * 360;
+        }
+        Firework.prototype.update = function(index) {
+            this.coordinates.pop(); this.coordinates.unshift([this.x, this.y]);
+            if (this.targetRadius < 8) { this.targetRadius += 0.3; } else { this.targetRadius = 1; }
+            this.speed *= this.acceleration; const vx = Math.cos(this.angle) * this.speed; const vy = Math.sin(this.angle) * this.speed;
+            this.distanceTraveled = Math.sqrt(Math.pow(this.x + vx - this.sx, 2) + Math.pow(this.y + vy - this.sy, 2));
+            if (this.distanceTraveled >= this.distanceToTarget) {
+                createParticles(this.tx, this.ty, this.hue); fireworks.splice(index, 1);
+            } else { this.x += vx; this.y += vy; }
+        };
+        Firework.prototype.draw = function() {
+            ctx.beginPath(); ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+            ctx.lineTo(this.x, this.y); ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, 1)`; ctx.stroke();
+            ctx.beginPath(); ctx.arc(this.tx, this.ty, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+        };
+        function Particle(x, y, hue) {
+            this.x = x; this.y = y; this.coordinates = []; this.coordinateCount = 5;
+            while (this.coordinateCount--) { this.coordinates.push([this.x, this.y]); }
+            this.angle = Math.random() * Math.PI * 2; this.speed = Math.random() * 10 + 1;
+            this.friction = 0.95; this.gravity = 1; this.hue = hue;
+            this.brightness = Math.random() * 50 + 50; this.alpha = 1; this.decay = Math.random() * 0.015 + 0.015;
+        }
+        Particle.prototype.update = function(index) {
+            this.coordinates.pop(); this.coordinates.unshift([this.x, this.y]); this.speed *= this.friction;
+            this.x += Math.cos(this.angle) * this.speed; this.y += Math.sin(this.angle) * this.speed + this.gravity;
+            this.alpha -= this.decay; if (this.alpha <= this.decay) { particles.splice(index, 1); }
+        };
+        Particle.prototype.draw = function() {
+            ctx.beginPath(); ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+            ctx.lineTo(this.x, this.y); ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`; ctx.stroke();
+        };
+        function createParticles(x, y, hue) {
+            let particleCount = 30 + Math.floor(Math.random() * 20); // Kept particle count same for now
+            while (particleCount--) { particles.push(new Particle(x, y, hue)); }
+        }
+        function launchFirework() {
+            // Increased max fireworks: from 10 to 30
+            if (fireworks.length < 30) {
+                const startX = canvas.width / 2; const startY = canvas.height;
+                const targetX = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
+                const targetY = Math.random() * (canvas.height / 2);
+                fireworks.push(new Firework(startX, startY, targetX, targetY));
+            }
+        }
+        let lastLaunchTime = 0;
+        // Reduced launch interval: from (random * 2000 + 800) to (random * 600 + 200) for more frequent launches
+        let launchInterval = Math.random() * 600 + 200; 
+
+        function loop(currentTime) {
+            requestAnimationFrame(loop); ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'lighter';
+            let i = fireworks.length; while (i--) { fireworks[i].draw(); fireworks[i].update(i); }
+            let j = particles.length; while (j--) { particles[j].draw(); particles[j].update(j); }
+            if (currentTime - lastLaunchTime > launchInterval) {
+                launchFirework(); lastLaunchTime = currentTime;
+                launchInterval = Math.random() * 600 + 200; // Update for next launch
+            }
+        }
+        // --- End Firework Effect ---
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const senderNameEncoded = urlParams.get('by');
+            const greetingElement = document.getElementById('greetingMessage');
+
+            if (senderNameEncoded) {
+                const senderName = decodeURIComponent(senderNameEncoded);
+                greetingElement.textContent = `शुभ दीपावली! ${senderName} की ओर से।`;
+                greetingElement.classList.add('animated-greeting');
+            } else {
+                greetingElement.textContent = "शुभ दीपावली!";
+                greetingElement.classList.add('animated-greeting');
+            }
+            
+            // Share button is now always potentially visible, its display logic removed from here.
+            // It's controlled by its parent #shareLinkContainer.
+
+            setTimeout(() => {
+                launchFirework(); // Initial launch
+                loop(0); // Start the animation loop
+            }, 500);
+        };
+
+        async function attemptShareFlow(senderName, linkToShare) {
+            const copyStatus = document.getElementById('copyStatus');
+            copyStatus.textContent = ''; // Clear previous status
+
+            const shareMessage = `${senderName} ने आपके लिए दीपावली की शुभकामनाएँ भेजी हैं! ✨\nइसे देखने के लिए क्लिक करें:`;
+            const fullShareTextForWhatsApp = `${shareMessage}\n${linkToShare}`;
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'दीपावली की शुभकामनाएँ!',
+                        text: shareMessage, 
+                        url: linkToShare,
+                    });
+                    // Native share dialog handles success/cancellation feedback.
+                } catch (error) {
+                    console.error('Error sharing using navigator.share:', error);
+                    if (error.name !== 'AbortError') { // AbortError means user cancelled
+                        copyStatus.textContent = 'शेयर नहीं हो सका। लिंक कॉपी कर दिया गया है।';
+                        copyLink(); // Fallback to copy if actual error
+                    } else {
+                        copyStatus.textContent = 'शेयर रद्द किया गया।';
+                    }
+                    setTimeout(() => { copyStatus.textContent = ''; }, 4000);
+                }
+            } else {
+                // Fallback to WhatsApp link
+                const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(fullShareTextForWhatsApp)}`;
+                const newWindow = window.open(whatsappUrl, '_blank');
+                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                    copyStatus.textContent = 'WhatsApp द्वारा शेयर करने में असमर्थ। कृपया लिंक कॉपी करें।';
+                    setTimeout(() => { copyStatus.textContent = ''; }, 4000);
+                } else {
+                    // If WhatsApp opens, no specific message needed here, or a temp one.
+                    // copyStatus.textContent = 'WhatsApp में शेयर करने का प्रयास किया जा रहा है...';
+                    // setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+                }
+            }
+        }
+
+        function generateLinkAndTryShare() {
+            const userNameInput = document.getElementById('userName');
+            const userName = userNameInput.value.trim();
+            const copyStatus = document.getElementById('copyStatus');
+            copyStatus.textContent = '';
+
+            if (userName === "") {
+                alert("कृपया अपना नाम दर्ज करें!");
+                return;
+            }
+
+            const baseUrl = window.location.href.split('?')[0];
+            const shareableLink = `${baseUrl}?by=${encodeURIComponent(userName)}`;
+
+            const generatedLinkInput = document.getElementById('generatedLink');
+            generatedLinkInput.value = shareableLink;
+
+            document.getElementById('shareLinkContainer').style.display = 'block';
+
+            // Attempt to share immediately
+            attemptShareFlow(userName, shareableLink);
+        }
+        
+        function manualShareButtonClick() {
+            const userNameInput = document.getElementById('userName'); 
+            const senderName = userNameInput.value.trim();
+            const generatedLinkInput = document.getElementById('generatedLink');
+            const linkToShare = generatedLinkInput.value;
+
+            if (!senderName) {
+                 alert("कृपया पहले शुभकामना भेजने के लिए अपना नाम लिखें।");
+                 return;
+            }
+            if (!linkToShare) {
+                alert("लिंक अभी बना नहीं है। कृपया पहले 'शुभकामना भेजें' पर क्लिक करें।");
+                return;
+            }
+            attemptShareFlow(senderName, linkToShare);
+        }
+
+        function copyLink() {
+            const generatedLinkInput = document.getElementById('generatedLink');
+            const copyStatus = document.getElementById('copyStatus');
+            
+            generatedLinkInput.select();
+            generatedLinkInput.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                navigator.clipboard.writeText(generatedLinkInput.value).then(() => {
+                    copyStatus.textContent = 'लिंक कॉपी हो गया!';
+                    setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+                }).catch(err => {
+                    console.error('Failed to copy with navigator.clipboard: ', err);
+                    // Fallback for browsers that don't support navigator.clipboard.writeText well
+                    try {
+                        document.execCommand('copy');
+                        copyStatus.textContent = 'लिंक कॉपी हो गया (fallback)!';
+                    } catch (execErr) {
+                        console.error('Failed to copy with document.execCommand: ', execErr);
+                        copyStatus.textContent = 'कॉपी करने में त्रुटि! कृपया स्वयं कॉपी करें।';
+                    }
+                    setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+                });
+            } catch (err) { // Catch if navigator.clipboard 
